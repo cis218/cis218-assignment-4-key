@@ -1,0 +1,41 @@
+{% load twit_tags %}
+<div class="row">
+  <div class="col-1">
+    <img
+      src="{% get_avatar_url email=twit.user.email size=50 %}"
+      class="user-image"
+      alt="user image"
+    >
+  </div>
+  <div class="col-11">
+    <h5>
+      <a href="{{ twit.user.get_absolute_url }}">
+        {% if twit.user.first_name %}
+          {{ twit.user.first_name }} {{ twit.user.last_name }}
+        {% else %}
+          {{ twit.user.username }}
+        {% endif %}
+      </a>
+      &nbsp;
+      <small>{{ twit.created_at|timesince }} ago</small>
+      &nbsp;
+      {% block edit_buttons %}
+        {% if twit.user == request.user %}
+          <a href="{% url 'twit_edit' twit.pk %}" class="btn btn-sm btn-primary">Edit</a>
+          <a href="{% url 'twit_delete' twit.pk %}" class="btn btn-sm btn-danger">Delete</a>
+        {% endif %}
+      {% endblock edit_buttons %}
+
+    </h5>
+    <h6>{{ twit.body }}</h6>
+  </div>
+</div>
+<div class="row">
+  <div class="col-1"></div>
+  <div class="col-11">
+    {% if twit.image_url %}
+      <img src="{{ twit.image_url }}">
+    {% endif %}
+  </div>
+  <div class="col-1"></div>
+</div>
