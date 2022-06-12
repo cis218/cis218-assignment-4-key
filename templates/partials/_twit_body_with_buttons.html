@@ -1,0 +1,13 @@
+{% extends 'partials/_twit_body_no_buttons.html' %}
+{% block edit_buttons %}
+  {% if twit.user == request.user %}
+    <a href="{% url 'twit_edit' twit.pk %}" class="btn btn-sm btn-primary" style="border-radius:15px;">
+      <i class="bi bi-pencil"></i>
+      Edit
+    </a>
+    <a href="{% url 'twit_delete' twit.pk %}" class="btn btn-sm btn-danger" style="border-radius:15px;">
+      <i class="bi bi-x-circle"></i>
+      Delete
+    </a>
+  {% endif %}
+{% endblock edit_buttons %}

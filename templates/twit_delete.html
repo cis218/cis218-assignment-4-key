@@ -10,7 +10,7 @@
       {% csrf_token %}
       <p>Are you sure you want to delete the following Twit?</p>
       <div style="padding:5px; border: solid 1px; border-color:lightgrey;">
-        {% include 'partials/_twit_body_delete.html' %}
+        {% include 'partials/_twit_body_no_buttons.html' %}
       </div>
       <br>
       <button class="btn btn-danger" type="submit">Confirm</button>
