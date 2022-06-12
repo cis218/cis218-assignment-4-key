@@ -11,4 +11,12 @@
     <br>
     <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
   </form>
+  <br>
+  <p>
+    <a href="{% url "password_reset" %}">Forgotten your password?</a>
+  </p>
+  <p>
+    <a href="{% url "signup" %}">Register a new account?</a>
+  </p>
+  <p class="mt-5 mb-3 text-muted">&copy; {% now "Y" %}</p>
 {% endblock content %}
