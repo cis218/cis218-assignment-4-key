@@ -10,5 +10,6 @@
     {{ form|crispy }}
     <br>
     <input type="submit" class="btn btn-success"  value="Update">
+    <a href="{% url 'password_change' %}" class="btn btn-primary float-end">Change Password</a>
   </form>
 {% endblock content %}
