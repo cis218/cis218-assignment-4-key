@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     # Local
     "accounts.apps.AccountsConfig",
+    "tweeter.apps.TweeterConfig",
 ]
 
 MIDDLEWARE = [
@@ -116,7 +117,7 @@ LOGOUT_REDIRECT_URL = "login"
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "America/New_York"
 
 USE_I18N = True
 
