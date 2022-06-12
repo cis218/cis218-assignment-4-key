@@ -1,0 +1,13 @@
+{% extends 'anonymous_base.html' %}
+
+{% block title %}Sign Up{% endblock title %}
+
+{% block content %}
+  <form method="post">
+    <h1 class="h3 mb-3 fw-normal">Sign Up</h1>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <br>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Up</button>
+  </form>
+{% endblock content %}
