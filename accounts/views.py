@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 from django.views.generic.edit import UpdateView
 
 from .models import CustomUser
@@ -34,3 +34,10 @@ class ProfileView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         """User passes test function authorization"""
         obj = self.get_object()
         return obj == self.request.user
+
+
+class PublicProfileView(LoginRequiredMixin, DetailView):
+    """Public Profile View"""
+
+    model = CustomUser
+    template_name = "public_profile.html"

@@ -9,7 +9,7 @@
   </div>
   <div class="col-11">
     <h5>
-      <a href="{{ twit.user.get_absolute_url }}">
+      <a href="{% url 'public_profile' twit.user.pk %}">
         {% if twit.user.first_name %}
           {{ twit.user.first_name }} {{ twit.user.last_name }}
         {% else %}
