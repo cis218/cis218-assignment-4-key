@@ -1,0 +1,30 @@
+{% load twit_tags %}
+{% for comment in twit.comments.all %}
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-1">
+      <img
+        src="{% get_avatar_url email=comment.user.email size=25 %}"
+        class="user-image"
+        alt="user image"
+      >
+    </div>
+    <div class="col-9">
+      <h6>
+        <a href="{% url 'public_profile' comment.user.pk %}">
+          {% if comment.user.first_name %}
+            {{ comment.user.first_name }} {{ comment.user.last_name }}
+          {% else %}
+            {{ comment.user.username }}
+          {% endif %}
+        </a>
+        &nbsp;
+        <small>{{ comment.created_at|timesince }} ago</small>
+        &nbsp;
+        {% block comment_edit_buttons %}
+        {% endblock comment_edit_buttons %}
+      </h6>
+      <span>{{ comment.text }}</span>
+    </div>
+  </div>
+{% endfor %}

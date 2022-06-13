@@ -1,7 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView
+from django.urls import reverse_lazy, reverse
+from django.views import View
+from django.views.generic import ListView, CreateView, DetailView, FormView
+from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import UpdateView, DeleteView
+
+from tweeter.forms import CommentForm
 
 from .models import Twit
 
@@ -58,3 +62,56 @@ class TwitCreateView(LoginRequiredMixin, CreateView):
         """Form Valid"""
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+
+class CommentCreateGetView(DetailView):
+    """Comment Create View"""
+
+    model = Twit
+    template_name = "comment_new.html"
+    context_object_name = "twit"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = CommentForm()
+        return context
+
+
+class CommentCreatePostView(SingleObjectMixin, FormView):
+    """Comment Create Post View"""
+
+    model = Twit
+    form_class = CommentForm
+    template_name = "comment_new.html"
+    context_object_name = "twit"
+
+    def post(self, request, *args, **kwargs):
+        """Post request"""
+        self.object = self.get_object()
+        return super().post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        """Form Valid"""
+        comment = form.save(commit=False)
+        comment.twit = self.object
+        comment.user = self.request.user
+        comment.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        """Get success Url"""
+        return reverse("twit_list")
+
+
+class TwitDetailCommentCreateView(LoginRequiredMixin, View):
+    """Twit Detail / Comment Create View"""
+
+    def get(self, request, *args, **kwargs):
+        """Get request"""
+        view = CommentCreateGetView.as_view()
+        return view(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        """Post request"""
+        view = CommentCreatePostView.as_view()
+        return view(request, *args, **kwargs)
