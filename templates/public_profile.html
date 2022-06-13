@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load twit_tags %}
+
+{% block title %}Public Profile{% endblock title %}
+
+{% block content %}
+  <h1>Public Profile</h1>
+  <div class="row">
+    <div class="col-3">
+      <img
+        src="{% get_avatar_url email=object.email size=150 %}"
+        class="user-image"
+        alt="user image"
+      >
+    </div>
+    <div class="col-9"></div>
+    <div class="col-12">
+      <h4>
+        {% if object.first_name %}
+          {{ object.first_name }} {{ object.last_name }}
+        {% else %}
+          {{ object.username }}
+        {% endif %}
+      </h4>
+      <h6>
+        <i class="bi-envelope"></i> Email {{ object.email }}
+        <i class="bi-calendar-check"></i> Joined {{ object.date_joined }}
+      </h6>
+      <h6>
+        <i class="bi-twitter"></i> Twits: {{ object.twits.count }}
+        {% if object.date_of_birth %}
+          <i class="bi-calendar"></i> Birthdate {{ object.date_of_birth }}
+        {% endif %}
+      </h6>
+    </div>
+  </div>
+  <br>
+  {% for twit in object.twits.all %}
+    <div style="padding:5px; border: solid 1px; border-color:lightgrey;">
+      {% include 'partials/_twit_body_with_buttons.html' %}
+      <br>
+    </div>
+  {% endfor %}
+{% endblock content %}
