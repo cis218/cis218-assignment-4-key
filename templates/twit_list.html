@@ -6,7 +6,7 @@
   <h1>Tweeter Feed</h1>
   <div class="row">
     <div class="col-12">
-      <a href="{% url "twit_new" %}" class="btn btn-primary float-end" style="border-radius:25px;">
+      <a href="{% url "twit_new" %}" class="btn btn-primary btn-round float-end">
         <i class="bi-plus-circle"></i>
         New Twit
       </a>
@@ -14,10 +14,12 @@
   </div>
   <br>
   {% for twit in twit_list %}
-    <div style="padding:5px; border: solid 1px; border-color:lightgrey;">
+    <div class="twit-box">
       {% include 'partials/_twit_body_with_buttons.html' %}
-      <br>
-      {% include 'partials/_comment.html' %}
+      {% if twit.comments.exists %}
+        <br>
+        {% include 'partials/_comment.html' %}
+      {% endif %}
       <br>
       {% include 'partials/_comment_buttons.html' %}
     </div>

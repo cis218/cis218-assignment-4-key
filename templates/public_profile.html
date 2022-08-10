@@ -36,9 +36,14 @@
   </div>
   <br>
   {% for twit in object.twits.all %}
-    <div style="padding:5px; border: solid 1px; border-color:lightgrey;">
+    <div class="twit-box">
       {% include 'partials/_twit_body_with_buttons.html' %}
+      {% if twit.comments.exists %}
+        <br>
+        {% include 'partials/_comment.html' %}
+      {% endif %}
       <br>
+      {% include 'partials/_comment_buttons.html' %}
     </div>
   {% endfor %}
 {% endblock content %}
