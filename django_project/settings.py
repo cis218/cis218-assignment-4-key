@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Auth User
 AUTH_USER_MODEL = "accounts.CustomUser"
 # Log In / Log out
-LOGIN_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = "twit_list"
 LOGOUT_REDIRECT_URL = "login"
 
 
