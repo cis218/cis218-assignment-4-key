@@ -1,11 +1,25 @@
 <div class="row">
   <div class="col-1"></div>
-  <div class="col-5">
+  <div class="col-2">
     <a href="{% url 'comment_new' twit.pk %}" class="btn btn-primary">
       <i class="bi-chat"></i> Comment
     </a>
   </div>
-  <div class="col-5">
+  <div class="col-2">
+    {% with user_likes=twit.likes.all %}
+      <button
+        data-id="{{ twit.id }}"
+        data-action="{% if user in user_likes %}un{% endif %}like"
+        data-like-url="{{ twit.get_like_url }}"
+        class="like_button btn btn-{% if user not in user_likes %}outline-{% endif %}primary"
+      >
+        <i class="like_icon bi-hand-thumbs-up{% if user in user_likes %}-fill{% endif %}"></i>
+        <span class="like_count">{{ user_likes|length }}</span>
+        Likes
+      </button>
+    {% endwith %}
+  </div>
+  <div class="col-6">
   </div>
   <div class="col-1"></div>
 </div>

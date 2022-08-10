@@ -13,19 +13,23 @@ class Twit(models.Model):
     )
     body = models.TextField()
     image_url = models.URLField(blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    users_like = models.ManyToManyField(
+    likes = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
-        related_name="twits_liked",
+        related_name="liked_twits",
         blank=True,
     )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.body[:30]
 
     def get_absolute_url(self):
         return reverse("twit_detail", kwargs={"pk": self.pk})
+
+    def get_like_url(self):
+        """Get like url based on pk"""
+        return reverse("twit_like", kwargs={"pk": self.pk})
 
     class Meta:
         ordering = ("-created_at",)

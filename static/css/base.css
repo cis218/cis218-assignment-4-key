@@ -1,0 +1,13 @@
+.twit-box {
+    padding: 5px;
+    border: solid 1px;
+    border-color: lightgrey;
+}
+
+.btn-round {
+    border-radius: 25px;
+}
+
+.btn-sm-round {
+    border-radius: 15px;
+}
