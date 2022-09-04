@@ -24,9 +24,6 @@ class Twit(models.Model):
     def __str__(self):
         return self.body[:30]
 
-    def get_absolute_url(self):
-        return reverse("twit_detail", kwargs={"pk": self.pk})
-
     def get_like_url(self):
         """Get like url based on pk"""
         return reverse("twit_like", kwargs={"pk": self.pk})
@@ -54,9 +51,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
-
-    def get_absolute_url(self):
-        return reverse("twit_list")
 
     class Meta:
         ordering = ("created_at",)
